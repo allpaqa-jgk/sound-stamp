@@ -28,7 +28,7 @@ Docker Compose で、少なくとも以下のサービスを用意する。
 すべて同一 Docker ネットワーク上に配置し、  
 `firebase-emulator:PORT` というホスト名で他コンテナから参照できるようにする。
 
-## 3. 代表的な docker-compose.yml 例（イメージ）
+## 3. 代表的な compose.yaml 例（イメージ）
 
 ※実際のポート番号・パスは実装時に調整する。
 
@@ -161,7 +161,7 @@ if (process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR === "true") {
 
 ## 7. 今後の ToDo（環境構築まわり）
 
-- [ ] `docker-compose.yml` の実ファイルを作成し、`web` / `firebase-emulator` を起動可能にする。
+- [ ] `compose.yaml` の実ファイルを作成し、`web` / `firebase-emulator` を起動可能にする。
 - [ ] `Dockerfile.web` を作成し、Node 20 + pnpm + Next.js 環境を整備する。
 - [ ] `.env` / `.env.local` のテンプレートを作成し、エミュレータ用フラグ (`NEXT_PUBLIC_USE_FIREBASE_EMULATOR`) を定義する。
 - [ ] Firebase Emulator Suite の UI (`localhost:4000`) から Auth / Firestore / Functions が動作していることを確認する。
