@@ -5,6 +5,9 @@ WORKDIR /usr/src/app
 # Enable pnpm via corepack
 RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 
+# Firebase CLI (emulator/dev)
+RUN npm install -g firebase-tools
+
 # Copy only manifests first for better cache
 COPY package.json pnpm-workspace.yaml tsconfig.base.json ./
 COPY apps/web/package.json apps/web/package.json
