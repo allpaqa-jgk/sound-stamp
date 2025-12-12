@@ -1,0 +1,15 @@
+node_modules
+.turbo
+.next
+out
+dist
+coverage
+pnpm-lock.yaml
+.env
+.env.*
+.firebase
+.firebase*
+firebase-debug.log
+*.log
+*.local
+*.tmp

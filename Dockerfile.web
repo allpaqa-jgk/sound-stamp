@@ -1,0 +1,22 @@
+FROM node:20-bullseye
+
+WORKDIR /usr/src/app
+
+# Enable pnpm via corepack
+RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
+
+# Copy only manifests first for better cache
+COPY package.json pnpm-workspace.yaml tsconfig.base.json ./
+COPY apps/web/package.json apps/web/package.json
+COPY packages/core/package.json packages/core/package.json
+COPY functions/package.json functions/package.json
+
+# Install dependencies (will vendor workspace once manifests exist)
+RUN pnpm install --frozen-lockfile --ignore-scripts || true
+
+# Copy the rest of the source
+COPY . .
+
+EXPOSE 3000
+
+CMD ["pnpm", "dev:web"]

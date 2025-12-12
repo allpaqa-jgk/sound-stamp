@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+    command: ["pnpm", "dev:web"]
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_USE_FIREBASE_EMULATOR: "true"
+      FIREBASE_AUTH_EMULATOR_HOST: "firebase-emulator:9099"
+      FIRESTORE_EMULATOR_HOST: "firebase-emulator:8080"
+      FUNCTIONS_EMULATOR_ORIGIN: "http://firebase-emulator:5001"
+    depends_on:
+      - firebase-emulator
+
+  firebase-emulator:
+    image: node:20
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+    command: ["firebase", "emulators:start", "--only", "auth,firestore,functions"]
+    ports:
+      - "4000:4000" # Emulator UI
+      - "8080:8080" # Firestore
+      - "9099:9099" # Auth
+      - "5001:5001" # Functions (example)
